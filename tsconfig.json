@@ -2,21 +2,22 @@
     // Visit https://aka.ms/tsconfig to read more about this file
     "compilerOptions": {
         // File Layout
-        // "rootDir": "./src",
+        "rootDir": "./src",
         "outDir": "./build",
 
-        // Environment Settings
-        // See also https://aka.ms/tsconfig/module
-        "module": "ESNext",
-        "target": "esnext",
-        
+        "module": "nodenext",
+        "moduleResolution": "NodeNext",
+        // "forceConsistentCasingInFileNames": true,
+
+        "target": "es2020",
+
         // For nodejs:
         // "lib": ["esnext"],
         "types": [],
         // and npm install -D @types/node
         "noImplicitAny": true,
 
-       "allowJs": true,
+        "allowJs": true,
         "sourceMap": true,
         "declaration": true,
         "declarationMap": true,
@@ -24,8 +25,8 @@
         // Stricter Typechecking Options
         "noUncheckedIndexedAccess": true,
         "exactOptionalPropertyTypes": true,
-       
-        "esModuleInterop":true,
+
+        "esModuleInterop": true,
         // Style Options
         "noImplicitReturns": true,
         // "noImplicitOverride": true,

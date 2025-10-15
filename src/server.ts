@@ -1,19 +1,20 @@
-import express ,{Request ,Response} from "express";
+import express, { Request, Response } from 'express';
+import bodyParser from 'body-parser';
 
+import ProductsRoutes from './handler/Products.js';
 
 //Application Object
-const app =express(); 
-const port:string ="4000"; 
+const app = express();
+const port: string = '4000';
 
+app.use(bodyParser.json());
 
+ProductsRoutes(app);
 
-
-app.get('/', (req :Request,res:Response)=>{
-      res.send("hello World");
+app.get('/', (req: Request, res: Response) => {
+    res.send('hello World');
 });
 
-app.listen(port ,()=>{
-  console.log(`running server on http://localhost:${port}`);
+app.listen(port, () => {
+    console.log(`running server on http://localhost:${port}`);
 });
-
-

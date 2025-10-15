@@ -1,0 +1,12 @@
+{
+    "dev": {
+        "driver": "pg",
+        "host": "localhost",
+        "port": 5432,
+        "database": "store_restaurant",
+        "user": "khalid",
+        "password": "pass123",
+        "schema": "public"
+    },
+    "sql-file": true
+}
