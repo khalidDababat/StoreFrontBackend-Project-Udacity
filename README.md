@@ -22,6 +22,16 @@
 
 ---
 
+## Environment variables
+- POSTGRES_HOST=localhost
+- POSTGRES_DB=store_restaurant
+- POSTGRES_USER=khalid
+- POSTGRES_PASSWORD=pass123
+- POSTGRES_PORT=5432
+- BCRYPT_PASSWORD=mysecret
+- SALT_ROUNDS=10
+- TOKEN_SECRET=mySuperSecretKey123
+
 # _License_
 
 ---
