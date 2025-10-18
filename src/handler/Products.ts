@@ -37,8 +37,7 @@ const create = async (req: Request, res: Response) => {
     }
 };
 
-
-// routes 
+// routes
 const ProductsRoutes = (app: express.Application) => {
     app.get('/products', index);
     app.get('/products/:id', show);

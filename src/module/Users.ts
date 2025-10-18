@@ -10,7 +10,7 @@ const pepper = process.env['BCRYPT_PASSWORD'];
 export type User = {
     id?: number;
     firstname: string;
-    lastname: string;
+    lastname?: string;
     password: string;
 };
 
@@ -34,7 +34,7 @@ export class userStore {
             //'@ts-expect-error'
             const conn = await client.connect();
             const sql = 'SELECT * FROM users where id=($1)';
-            const result = await conn.query(sql,[id]);
+            const result = await conn.query(sql, [id]);
 
             conn.release();
             return result.rows[0];
@@ -55,7 +55,7 @@ export class userStore {
                 parseInt(saltRounds as string)
             );
 
-            console.log("hhhhhh " , hash);
+            // console.log("hhhhhh " , hash);
 
             const result = await conn.query(sql, [
                 u.firstname,
@@ -73,8 +73,8 @@ export class userStore {
     }
 
     async authenticate(
-         firstname: string,
-         password: string
+        firstname: string,
+        password: string
     ): Promise<User | null> {
         try {
             // '@ts-expect-error'
@@ -84,7 +84,7 @@ export class userStore {
             if (result.rows.length) {
                 const user = result.rows[0];
 
-                console.log("password + pepper ",password + pepper);
+                // console.log("password + pepper ",password + pepper);
 
                 if (bcrypt.compareSync(password + pepper, user.password)) {
                     return user;
