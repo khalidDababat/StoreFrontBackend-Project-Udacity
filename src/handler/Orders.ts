@@ -56,6 +56,7 @@ const currentOrderByUser = async (req: Request, res: Response) => {
     }
 };
 
+// routes
 const orderRoutes = (app: express.Application) => {
     app.get('/orders', index);
     app.post('/orders', create);

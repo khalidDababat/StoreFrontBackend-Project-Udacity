@@ -4,9 +4,9 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
         "build": "npx tsc",
         "format": "npx prettier . --write",
+        "test": "jasmine",
         "lint": "eslint . --ext .ts",
         "dev": "tsc-watch --onSuccess \"node build/server.js\"",
         "database": "tsc-watch --onSuccess \"node build/database.js\""
