@@ -10,7 +10,7 @@ export type Product = {
 
 export class productStore {
     async index(): Promise<Product[]> {
-        // '@ts-expect-error'
+        if (!client) throw new Error('Database client not initialized');
         const conn = await client.connect();
         const sql = 'SELECT * FROM products';
 
@@ -22,7 +22,7 @@ export class productStore {
 
     async show(id: number): Promise<Product | null> {
         try {
-            // '@ts-expect-error'
+            if (!client) throw new Error('Database client not initialized');
             const conn = await client.connect();
 
             const sql = 'SELECT * FROM products WHERE id=($1)';
@@ -35,7 +35,7 @@ export class productStore {
     }
 
     async create(p: Product): Promise<Product> {
-        // '@ts-expect-error'
+        if (!client) throw new Error('Database client not initialized');
         const conn = await client.connect();
         const sql =
             'INSERT INTO products (name, price, description,category) VALUES($1, $2, $3,$4) RETURNING *';
@@ -49,5 +49,40 @@ export class productStore {
         const Product = res.rows[0];
         conn.release();
         return Product;
+    }
+
+    async delete(id: number): Promise<Product> {
+        try {
+            if (!client) throw new Error('Database client not initialized');
+            const conn = await client.connect();
+            const sql = 'DELETE FROM products WHERE id=($1) RETURNING *';
+            const res = await conn.query(sql, [id]);
+            const Product = res.rows[0];
+            conn.release();
+            return Product;
+        } catch (err) {
+            throw new Error(`Could not delete product ${id}. Error: ${err}`);
+        }
+    }
+
+    async update(p: Product): Promise<Product> {
+        try {
+            if (!client) throw new Error('Database client not initialized');
+            const conn = await client.connect();
+            const sql =
+                'UPDATE products SET name=$1, price=$2, description=$3, category=$4 WHERE id=$5 RETURNING *';
+            const res = await conn.query(sql, [
+                p.name,
+                p.price,
+                p.description,
+                p.category,
+                p.id,
+            ]);
+            const Product = res.rows[0];
+            conn.release();
+            return Product;
+        } catch (err) {
+            throw new Error(`Could not update product ${p.id}. Error: ${err}`);
+        }
     }
 }

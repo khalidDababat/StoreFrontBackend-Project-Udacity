@@ -2,11 +2,11 @@
     "name": "store-front-backend-project",
     "version": "1.0.0",
     "main": "index.js",
-    "type": "module",
+    "type": "commonjs",
     "scripts": {
         "build": "npx tsc",
         "format": "npx prettier . --write",
-        "test": "jasmine",
+        "test": "ENV=test && npx tsc && db-migrate --env test up && jasmine && db-migrate db:drop test",
         "lint": "eslint . --ext .ts",
         "dev": "tsc-watch --onSuccess \"node build/server.js\"",
         "database": "tsc-watch --onSuccess \"node build/database.js\""
@@ -16,6 +16,7 @@
     "license": "ISC",
     "description": "",
     "devDependencies": {
+        "@types/jest": "^30.0.0",
         "@typescript-eslint/eslint-plugin": "^8.46.0",
         "@typescript-eslint/parser": "^8.46.0",
         "eslint": "^9.37.0",

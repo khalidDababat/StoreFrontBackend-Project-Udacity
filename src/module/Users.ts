@@ -18,6 +18,8 @@ export class userStore {
     async index(): Promise<User[]> {
         try {
             //'@ts-expect-error'
+            if (!client) throw new Error('Database client not initialized');
+
             const conn = await client.connect();
             const sql = 'SELECT * FROM users';
             const result = await conn.query(sql);
@@ -32,6 +34,8 @@ export class userStore {
     async show(id: number): Promise<User | null> {
         try {
             //'@ts-expect-error'
+            if (!client) throw new Error('Database client not initialized');
+
             const conn = await client.connect();
             const sql = 'SELECT * FROM users where id=($1)';
             const result = await conn.query(sql, [id]);
@@ -46,6 +50,8 @@ export class userStore {
     async create(u: User): Promise<User> {
         try {
             // '@ts-expect-error'
+            if (!client) throw new Error('Database client not initialized');
+
             const conn = await client.connect();
             const sql =
                 'INSERT INTO users (firstname, lastname, password) VALUES($1, $2, $3) RETURNING *';
@@ -78,6 +84,8 @@ export class userStore {
     ): Promise<User | null> {
         try {
             // '@ts-expect-error'
+            if (!client) throw new Error('Database client not initialized');
+
             const conn = await client.connect();
             const sql = 'SELECT password FROM users WHERE firstName=($1)';
             const result = await conn.query(sql, [firstname]);

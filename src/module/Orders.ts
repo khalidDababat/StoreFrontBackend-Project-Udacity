@@ -17,6 +17,7 @@ export class orderStore {
     async index(): Promise<Order[]> {
         try {
             // '@ts-expect-error'
+            if (!client) throw new Error('Database client not initialized');
             const conn = await client.connect();
             const sql = 'SELECT * FROM orders';
             const res = await conn.query(sql);
@@ -30,6 +31,8 @@ export class orderStore {
     async create(o: Order): Promise<Order> {
         try {
             // '@ts-expect-error'
+            if (!client) throw new Error('Database client not initialized');
+
             const conn = await client.connect();
             const sql =
                 'INSERT INTO orders (user_id, status) VALUES($1, $2) RETURNING *';
@@ -50,6 +53,8 @@ export class orderStore {
     ): Promise<OrderProduct> {
         try {
             // '@ts-expect-error'
+            if (!client) throw new Error('Database client not initialized');
+
             const conn = await client.connect();
             const sql =
                 'INSERT INTO order_products (order_id, product_id,quantity) VALUES($1, $2, $3) RETURNING *';
@@ -67,6 +72,8 @@ export class orderStore {
     async currentOrderByUser(userId: number): Promise<Order[]> {
         try {
             // '@ts-expect-error'
+            if (!client) throw new Error('Database client not initialized');
+
             const conn = await client.connect();
             const sql =
                 'SELECT * FROM orders WHERE user_id = ($1) AND status = $2';

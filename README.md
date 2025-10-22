@@ -39,6 +39,7 @@ It provides endpoints for managing users, products, and orders.
 # To run the app
 
 npm run dev
+npm run test
 
 ### Database schema with column name and type.
 
@@ -82,6 +83,8 @@ quantity INT NOT NULL
 - http://localhost:4000/orders get all orders
 - http://localhost:4000/orders/3/products post add Product for user
 - http://localhost:4000/orders/3 get current order for specific user
+- http://localhost:4000/products PUT uPdate product by id
+- http://localhost:4000/products/1 delete specific product
 
 # Contact
 

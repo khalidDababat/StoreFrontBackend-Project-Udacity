@@ -68,12 +68,14 @@ const authenticate = async (req: Request, res: Response) => {
         if (!tokenSecret) {
             throw new Error('TOKEN_SECRET environment variable is not set');
         }
-        const token = jwt.sign({ user: authenticatedUser }, tokenSecret);
-        res.json({ token });
+        const token = jwt.sign({ user: authenticatedUser }, tokenSecret, {
+            expiresIn: '1h',
+        });
+        res.json({ ...authenticatedUser, token });
     } catch (err) {
         res.status(401);
         res.json({ error: 'Authentication failed' });
-        console.error('❌ Authentication error:', err);
+        console.error('Authentication error:', err);
     }
 };
 
