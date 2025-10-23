@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 
 import { Order, orderStore } from '../module/Orders.js';
-//import { verifyAuthToken } from '../middleware/verifyAuthToken';
+import { verifyAuthToken } from './verifyAuthToken .js';
 
 const store = new orderStore();
 
@@ -61,7 +61,7 @@ const orderRoutes = (app: express.Application) => {
     app.get('/orders', index);
     app.post('/orders', create);
     app.post('/orders/:id/products', addProduct);
-    app.get('/orders/:userId', currentOrderByUser);
+    app.get('/orders/:userId', verifyAuthToken, currentOrderByUser);
 };
 
 export default orderRoutes;

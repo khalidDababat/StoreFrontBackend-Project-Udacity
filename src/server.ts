@@ -6,7 +6,7 @@ import usersRoutes from './handler/Users.js';
 import orderRoutes from './handler/Orders.js';
 
 //Application Object
-const app = express();
+export const app = express();
 const port: string = '4000';
 
 app.use(express.json());
