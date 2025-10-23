@@ -58,9 +58,9 @@ const currentOrderByUser = async (req: Request, res: Response) => {
 
 // routes
 const orderRoutes = (app: express.Application) => {
-    app.get('/orders', index);
-    app.post('/orders', create);
-    app.post('/orders/:id/products', addProduct);
+    app.get('/orders', verifyAuthToken, index);
+    app.post('/orders', verifyAuthToken, create);
+    app.post('/orders/:id/products', verifyAuthToken, addProduct);
     app.get('/orders/:userId', verifyAuthToken, currentOrderByUser);
 };
 

@@ -6,7 +6,7 @@
     "scripts": {
         "build": "npx tsc",
         "format": "npx prettier . --write",
-        "test": "ENV=test && npx tsc && db-migrate --env test up && jasmine && db-migrate db:drop test",
+        "test": "cross-env ENV=test && npx tsc && db-migrate --env test up && jasmine && db-migrate db:drop test",
         "lint": "eslint . --ext .ts",
         "dev": "tsc-watch --onSuccess \"node build/server.js\"",
         "database": "tsc-watch --onSuccess \"node build/database.js\""
@@ -19,6 +19,7 @@
         "@types/jest": "^30.0.0",
         "@typescript-eslint/eslint-plugin": "^8.46.0",
         "@typescript-eslint/parser": "^8.46.0",
+        "cross-env": "^10.1.0",
         "eslint": "^9.37.0",
         "eslint-config-prettier": "^10.1.8",
         "prettier": "^3.6.2",
