@@ -21,5 +21,6 @@ export const verifyAuthToken = (
     } catch (err) {
         res.status(401);
         res.json('Access denied, invalid token');
+        console.error(err);
     }
 };

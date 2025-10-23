@@ -7,7 +7,7 @@
 
 - Two environments: dev and test
 - ENV=dev connects to store_restaurant
-- ENV=test connects to store_test
+- ENV=test connects to store_restaurant_test
 
 ## Security
 
