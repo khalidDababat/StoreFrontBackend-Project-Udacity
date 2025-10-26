@@ -1,0 +1,71 @@
+$bg-color: #960405;
+$color-font: black;
+$bg-hoverLink: orange;
+
+.sidebar {
+    max-width: 100%;
+    height: 100vh;
+    padding: 10px 10px;
+    background-color: $bg-color;
+
+    .logo {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .container {
+        margin-top: 30px;
+
+        #active {
+            background-color: $bg-hoverLink;
+            border-radius: 10px;
+            padding: 5px;
+        }
+
+        .item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+
+            img {
+                width: 25px;
+                height: 25px;
+            }
+
+            a {
+                text-decoration: none;
+                color: $color-font;
+                font-size: 19px;
+                font-weight: 600;
+            }
+
+            &:hover {
+                background-color: $bg-hoverLink;
+                padding: 5px;
+                border-radius: 10px;
+                transition: 0.8s;
+            }
+        }
+    }
+    button {
+        margin: 0 20px;
+        padding: 10px 10px;
+        width: 200px;
+        margin-top: 50px;
+        font-size: large;
+        font-weight: 800;
+        border-radius: 25px;
+        border: none;
+        background-color: orange;
+
+        img {
+            max-width: 30px;
+            max-height: 30px;
+        }
+        &:hover {
+            background-color: rgb(136, 118, 85);
+            color: white;
+            transition: 0.3s;
+        }
+    }
+}

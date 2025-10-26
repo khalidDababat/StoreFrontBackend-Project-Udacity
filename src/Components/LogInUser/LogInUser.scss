@@ -1,0 +1,79 @@
+$color-font: #ffff;
+
+body {
+    background-image: url('../../assets/images/backGround.png');
+    background-size: contain;
+}
+
+.login-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 70px 100px;
+
+    border-radius: 50px;
+    background-color: rgb(60 60 63 / 80%);
+
+    .login-image {
+        flex: 1;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    .login-form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        .title {
+            display: flex;
+            flex-direction: column;
+            color: $color-font;
+            .logo {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 30px;
+            }
+        }
+
+        form {
+            > div {
+                display: flex;
+                background-color: $color-font;
+                padding: 10px;
+                width: 100%;
+                gap: 10px;
+                border-radius: 50px;
+                align-items: center;
+
+                img {
+                    width: 20px;
+                    height: 20px;
+                }
+                input {
+                    font-weight: 500;
+                    font-size: 20px;
+                    border: none;
+                }
+            }
+
+            button {
+                padding: 20px;
+                font-weight: 700;
+                font-size: 19px;
+                width: 100%;
+                border-radius: 30px;
+                border: none;
+                background-color: #9e3737;
+
+                &:hover {
+                    background-color: #995757;
+                    color: $color-font;
+                    transition: 0.5s;
+                }
+            }
+        }
+    }
+}
