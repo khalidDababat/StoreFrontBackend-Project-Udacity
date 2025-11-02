@@ -1,0 +1,14 @@
+.search {
+    display: inline-flex;
+    position: relative;
+    align-items: center;
+    justify-content: start;
+    margin-left: 10px;
+    > div {
+        position: absolute;
+        left: 10px;
+    }
+    input {
+        padding: 5px 30px;
+    }
+}

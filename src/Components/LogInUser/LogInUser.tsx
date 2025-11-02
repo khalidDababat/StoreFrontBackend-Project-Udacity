@@ -28,7 +28,7 @@ const LogINSignUb = () => {
             const payload: LoginPayload = { firstName, password };
 
             const res: Response = await fetch(
-                'http://localhost:4000/users/authenticate',
+                `${process.env.REACT_APP_BACKEND_UR}/users/authenticate`,
                 {
                     method: 'POST',
                     headers: { 'content-Type': 'application/json' },
