@@ -1,10 +1,9 @@
 import React from 'react';
-import './CreateProduct.scss';
+//import './CreateProduct.scss';
 import Sidebar from '../Sidebar/Sidebar';
 import { useNavigate } from 'react-router';
 import ProductForm from '../ProductForm/ProductForm';
 import HeaderUser from '../Headers/HeaderUser';
-
 
 const CreateProduct = () => {
     const navigate = useNavigate();
@@ -39,9 +38,7 @@ const CreateProduct = () => {
         <div className="addProduct-container">
             <Sidebar />
             <div className="content">
-               <HeaderUser 
-                title="Add Product"
-                />
+                <HeaderUser title="Add Product" />
                 <ProductForm
                     onSubmit={createNewProduct}
                     onCancel={() => navigate('/products')}

@@ -1,4 +1,5 @@
-import React, { useState } from 'react'; 
+import React, { useState } from 'react';
+import './ProductForm.scss';
 interface ProductFormProps {
     initialData?: {
         name?: string;
@@ -21,10 +22,14 @@ const ProductForm: React.FC<ProductFormProps> = ({
 }) => {
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [nameProduct, setNameProduct] = useState(initialData.name || '');
-    const [priceProduct, setPriceProduct] = useState(initialData.price ||'');
-    const [description, setDescription] = useState(initialData.name ||'');
-    const [category, setCategory] = useState(initialData.name ||'');
-    const [features, setFeatures] = useState<string>(initialData.name || '');
+    const [priceProduct, setPriceProduct] = useState(initialData.price || '');
+    const [description, setDescription] = useState(
+        initialData.description || ''
+    );
+    const [category, setCategory] = useState(initialData.category || '');
+    const [features, setFeatures] = useState<string>(
+        initialData.features || ''
+    );
     const [file, setFile] = useState<File | null>(null);
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -34,7 +39,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
         formData.append('price', priceProduct);
         formData.append('description', description);
         formData.append('category', category);
-        formData.append('features', JSON.stringify(features.split(/[,،]/)));
+        formData.append('features', JSON.stringify(features.split(',')));
 
         if (file) formData.append('image', file);
         onSubmit(formData);
@@ -57,8 +62,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
                     <input
                         id="imageUpload"
                         accept="image/*"
-                        type="file" 
-                        className='d-none'
+                        type="file"
+                        className="d-none"
                         onChange={(e) => {
                             const file = e.target.files?.[0];
                             if (file) {
@@ -70,49 +75,49 @@ const ProductForm: React.FC<ProductFormProps> = ({
                 </div>
 
                 <div className="info d-flex-column ">
-                        <label htmlFor="name">Name</label> <br />
-                        <input
-                            id="name"
-                            type="text"
-                            required
-                            value={nameProduct}
-                            onChange={(e) => setNameProduct(e.target.value)}
-                        />
-                        <br />
-                        <label htmlFor="price">price</label> <br />
-                        <input
-                            id="price"
-                            type="text"
-                            required
-                            value={priceProduct}
-                            onChange={(e) => setPriceProduct(e.target.value)}
-                        />
-                        <br />
-                        <label htmlFor="">description</label> <br />
-                        <input
-                            type="text"
-                            required
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                        />
-                        <br />
-                        <label htmlFor="">category</label> <br />
-                        <input
-                            type="text"
-                            required
-                            value={category}
-                            onChange={(e) => setCategory(e.target.value)}
-                        />
-                        <br />
-                        <label htmlFor="">features</label> <br />
-                        <input
-                            type="text"
-                            required
-                            value={features}
-                            onChange={(e) => setFeatures(e.target.value)}
-                        />
-                        <br />
-                    </div>
+                    <label htmlFor="name">Name</label> <br />
+                    <input
+                        id="name"
+                        type="text"
+                        required
+                        value={nameProduct}
+                        onChange={(e) => setNameProduct(e.target.value)}
+                    />
+                    <br />
+                    <label htmlFor="price">price</label> <br />
+                    <input
+                        id="price"
+                        type="text"
+                        required
+                        value={priceProduct}
+                        onChange={(e) => setPriceProduct(e.target.value)}
+                    />
+                    <br />
+                    <label htmlFor="">description</label> <br />
+                    <input
+                        type="text"
+                        required
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
+                    <br />
+                    <label htmlFor="">category</label> <br />
+                    <input
+                        type="text"
+                        required
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                    />
+                    <br />
+                    <label htmlFor="">features</label> <br />
+                    <input
+                        type="text"
+                        required
+                        value={features}
+                        onChange={(e) => setFeatures(e.target.value)}
+                    />
+                    <br />
+                </div>
             </div>
 
             <div className="btn">

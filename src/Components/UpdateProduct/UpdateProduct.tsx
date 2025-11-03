@@ -14,24 +14,21 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({
     onClose,
     onUpdateSuccess,
 }) => {
-    
     const handelUpdate = async (formData: FormData) => {
         try {
             const res = await fetch(
                 `${process.env.REACT_APP_BACKEND_UR}/products/${product.id}`,
                 {
                     method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
                     body: formData,
                 }
             );
 
             if (!res.ok) {
-                console.log('failed Update Product');
+                console.log('failed Update Product in server');
+            } else {
+                onUpdateSuccess();
             }
-            onUpdateSuccess();
         } catch (error) {
             console.log('Update failed Product', error);
         }
@@ -44,7 +41,7 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({
                 <ProductForm
                     initialData={{
                         name: product.name,
-                        price: String(product.price),
+                        price: product.price,
                         description: product.description,
                         category: product.category,
                         features: Array.isArray(product.features)

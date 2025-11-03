@@ -2,11 +2,10 @@ import React from 'react';
 import logoUser from '../../assets/person-circle.svg';
 
 interface HeaderUserProps {
-    title:string;
+    title: string;
 }
 
-
-const HeaderUser:React.FC<HeaderUserProps> = ({title}) => {
+const HeaderUser: React.FC<HeaderUserProps> = ({ title }) => {
     return (
         <div className="title">
             <h1>{title}</h1>

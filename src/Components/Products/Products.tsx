@@ -3,7 +3,7 @@ import './Products.scss';
 import Sidebar from '../Sidebar/Sidebar';
 import SearchInput from '../SearchInput/SearchInput';
 import { useNavigate } from 'react-router';
-import UpdateProduct from '../UpdateProduct/UpdateProduct'; 
+import UpdateProduct from '../UpdateProduct/UpdateProduct';
 import HeaderUser from '../Headers/HeaderUser';
 
 type Product = {
@@ -14,10 +14,7 @@ type Product = {
     category: string;
     image?: string;
     features?: string[];
-}; 
-
-
-
+};
 
 const Products = () => {
     const [products, setProducts] = useState<Product[]>([]);
@@ -58,9 +55,7 @@ const Products = () => {
     };
 
     const deleteProduct = async (id: string) => {
-        const confirmDelete = window.confirm(
-            'هل انت متأكد من حذف المنتج ؟'
-        );
+        const confirmDelete = window.confirm('هل انت متأكد من حذف المنتج ؟');
         if (!confirmDelete) {
             return;
         }
@@ -87,20 +82,18 @@ const Products = () => {
         }
     };
 
-   
-    const handelUpdate =(p:Product)=>{
-        setSelectedProduct(p); 
-        setShowModel(true);       
-    }; 
+    const handelUpdate = (p: Product) => {
+        setSelectedProduct(p);
+        setShowModel(true);
+    };
 
-    const handelCloseModel = ()=> {
-         setShowModel(false);
-         setSelectedProduct(null); 
-
-    }; 
-    const handleUpdateSuccess =()=>{
-        fetchProducts(); 
-        handelCloseModel(); 
+    const handelCloseModel = () => {
+        setShowModel(false);
+        setSelectedProduct(null);
+    };
+    const handleUpdateSuccess = () => {
+        fetchProducts();
+        handelCloseModel();
     };
 
     return (
@@ -108,9 +101,7 @@ const Products = () => {
             <div className="container-products">
                 <Sidebar />
                 <div className="content">
-                    <HeaderUser 
-                      title='Products'
-                     />
+                    <HeaderUser title="Products" />
                     <div className="btns">
                         <SearchInput />
                         <button type="button" onClick={addProduct}>
@@ -155,7 +146,13 @@ const Products = () => {
                                         </td>
                                         <td>
                                             <div className="details">
-                                                <button onClick={() => handelUpdate(item)}>Edit</button>
+                                                <button
+                                                    onClick={() =>
+                                                        handelUpdate(item)
+                                                    }
+                                                >
+                                                    Edit
+                                                </button>
                                                 <button
                                                     id="del"
                                                     onClick={() =>
@@ -169,19 +166,15 @@ const Products = () => {
                                     </tr>
                                 ))}
                             </tbody>
-                        </table> 
-
-                      
+                        </table>
                     </div>
-                      {
-                            showModel && selectProduct &&(
-                                  <UpdateProduct 
-                                      product={selectProduct}
-                                      onClose={handelCloseModel}
-                                      onUpdateSuccess={handleUpdateSuccess}
-                                     />     
-                            )
-                        }
+                    {showModel && selectProduct && (
+                        <UpdateProduct
+                            product={selectProduct}
+                            onClose={handelCloseModel}
+                            onUpdateSuccess={handleUpdateSuccess}
+                        />
+                    )}
                 </div>
             </div>
         </Fragment>
