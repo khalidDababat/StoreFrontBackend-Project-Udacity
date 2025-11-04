@@ -1,4 +1,5 @@
 .container-Dashboard {
-    display: flex;
-    gap: 10px;
+    display: grid;
+    gap: 5px;
+    grid-template-columns: 280px 1fr;
 }

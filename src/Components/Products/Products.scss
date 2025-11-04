@@ -1,5 +1,6 @@
 .container-products {
-    display: flex;
+    display: grid;
+    grid-template-columns: 280px 1fr;
     gap: 5px;
 
     .content {
@@ -71,3 +72,17 @@
         }
     }
 }
+
+// @media (max-width: 900px) {
+//   .container-products {
+//     grid-template-columns: 1fr; /* Stack vertically */
+//   }
+
+//   .container-products .sidebar {
+//     order: 1; /* Sidebar on top */
+//   }
+
+//   .container-products .content {
+//     order: 2;
+//   }
+// }

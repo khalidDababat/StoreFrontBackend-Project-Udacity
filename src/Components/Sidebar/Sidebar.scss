@@ -7,7 +7,7 @@ $bg-hoverLink: orange;
     min-height: 100vh;
     padding: 10px 10px;
     background-color: $bg-color;
-
+    position: relative;
     .logo {
         margin-top: 10px;
         text-align: center;
@@ -48,7 +48,7 @@ $bg-hoverLink: orange;
         }
     }
     button {
-        margin: 0 20px;
+        // margin: 0 20px;
         padding: 10px 10px;
         width: 200px;
         margin-top: 50px;
@@ -57,6 +57,9 @@ $bg-hoverLink: orange;
         border-radius: 25px;
         border: none;
         background-color: orange;
+        position: absolute;
+
+        bottom: 20px;
 
         img {
             max-width: 30px;

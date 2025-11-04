@@ -96,7 +96,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
                     <label htmlFor="">description</label> <br />
                     <input
                         type="text"
-                        required
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     />
@@ -112,7 +111,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
                     <label htmlFor="">features</label> <br />
                     <input
                         type="text"
-                        required
                         value={features}
                         onChange={(e) => setFeatures(e.target.value)}
                     />

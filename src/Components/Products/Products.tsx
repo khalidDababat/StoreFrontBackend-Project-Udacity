@@ -13,7 +13,7 @@ type Product = {
     description?: string;
     category: string;
     image?: string;
-    features?: string[];
+    features?: string;
 };
 
 const Products = () => {
@@ -23,7 +23,7 @@ const Products = () => {
     const navigate = useNavigate();
 
     const fetchProducts = async () => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token'); // not secure
         try {
             const response = await fetch(
                 `${process.env.REACT_APP_BACKEND_UR}/products`,
@@ -127,44 +127,52 @@ const Products = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {products.map((item) => (
-                                    <tr key={item.id}>
-                                        <td>{item.id}</td>
-                                        <td>{item.name}</td>
-                                        <td>{item.price}</td>
-                                        <td>{item.description ?? ''}</td>
-                                        <td>{item.category}</td>
-                                        <td>{item.features ?? ''}</td>
-                                        <td>
-                                            {item.image && (
-                                                <img
-                                                    className="image-product"
-                                                    src={`${process.env.REACT_APP_BACKEND_UR}${item.image}`}
-                                                    alt="not Found"
-                                                />
-                                            )}
-                                        </td>
-                                        <td>
-                                            <div className="details">
-                                                <button
-                                                    onClick={() =>
-                                                        handelUpdate(item)
-                                                    }
-                                                >
-                                                    Edit
-                                                </button>
-                                                <button
-                                                    id="del"
-                                                    onClick={() =>
-                                                        deleteProduct(item.id)
-                                                    }
-                                                >
-                                                    Delete
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))}
+                                {products.length > 0 ? (
+                                    products.map((item) => (
+                                        <tr key={item.id}>
+                                            <td>{item.id}</td>
+                                            <td>{item.name}</td>
+                                            <td>{item.price}</td>
+                                            <td>{item.description ?? ''}</td>
+                                            <td>{item.category}</td>
+                                            <td>{item.features ?? ''}</td>
+                                            <td>
+                                                {item.image && (
+                                                    <img
+                                                        className="image-product"
+                                                        src={`${process.env.REACT_APP_BACKEND_UR}${item.image}`}
+                                                        alt="not Found"
+                                                    />
+                                                )}
+                                            </td>
+                                            <td>
+                                                <div className="details">
+                                                    <button
+                                                        onClick={() =>
+                                                            handelUpdate(item)
+                                                        }
+                                                    >
+                                                        Edit
+                                                    </button>
+                                                    <button
+                                                        id="del"
+                                                        onClick={() =>
+                                                            deleteProduct(
+                                                                item.id
+                                                            )
+                                                        }
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <td colSpan={8} style={{ color: 'gray' }}>
+                                        لايوجد منتجات مضافة
+                                    </td>
+                                )}
                             </tbody>
                         </table>
                     </div>

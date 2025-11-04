@@ -3,7 +3,6 @@ import './Sidebar.scss';
 import Logo from '../Logo/Logo';
 
 import dashboardLogo from '../../assets/bar-chart-fill.svg';
-import customerLogo from '../../assets/person-circle.svg';
 import productsLogo from '../../assets/basket2.svg';
 import ordersLogo from '../../assets/bookmark-fill.svg';
 import reportsLogo from '../../assets/bell-fill.svg';
@@ -24,10 +23,7 @@ const Sidebar = () => {
                     <img src={dashboardLogo} alt="Dashboard" />
                     <Link to="/dashboard">Dashboard</Link>
                 </div>
-                <div className="item">
-                    <img src={customerLogo} alt="Customer" />
-                    <a href="#">Customer</a>
-                </div>
+
                 <div className="item">
                     <img src={productsLogo} alt="Products" />
                     <Link to="/products">Products</Link>

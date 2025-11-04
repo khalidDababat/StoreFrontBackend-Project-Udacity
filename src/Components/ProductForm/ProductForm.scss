@@ -1,8 +1,9 @@
 $color-label: #960405;
 
 .addProduct-container {
-    display: flex;
+    display: grid;
     gap: 5px;
+    grid-template-columns: 280px 1fr;
 
     .content {
         width: 100%;
@@ -72,7 +73,7 @@ $color-label: #960405;
         margin: 25px 125px 0px 0px;
 
         button {
-            padding: 5px 20px;
+            padding: 15px 40px;
             font-size: 18px;
             font-weight: bold;
             background-color: #ffa500;

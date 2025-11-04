@@ -23,7 +23,7 @@ const CreateProduct = () => {
             );
 
             if (!response.ok) {
-                alert('not save Product In DataBase ');
+                alert('create Product failed!');
             } else {
                 navigate('/products');
             }
