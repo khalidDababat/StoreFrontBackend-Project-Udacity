@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import { Product, productStore } from '../module/Products.js';
-import { verifyAuthToken } from './verifyAuthToken .js';
+import { verifyAuthToken } from './verifyAuthToken.js';
+import multer from 'multer';
 
 const store = new productStore();
 
@@ -28,13 +29,14 @@ const create = async (req: Request, res: Response) => {
             price: req.body.price,
             description: req.body.description,
             category: req.body.category,
+            image: req.file ? `/uploads/${req.file.filename}` : '',
+            features: req.body.features,
         };
 
         const newProduct = await store.create(Product);
         res.json(newProduct);
     } catch (err) {
-        res.status(400);
-        res.json(err);
+        res.status(400).json(err);
     }
 };
 
@@ -55,16 +57,27 @@ const deleteProduct = async (req: Request, res: Response) => {
 
 const update = async (req: Request, res: Response) => {
     try {
-        const Product: Product = {
-            id: req.body.id,
+        const id = req.params['id'] ?? '';
+        if (isNaN(parseInt(id))) {
+            res.status(400).json({ error: 'Invalid product id' });
+            return;
+        }
+
+        const product: Product = {
+            id,
             name: req.body.name,
             price: req.body.price,
             description: req.body.description,
             category: req.body.category,
+            image: req.file ? `/uploads/${req.file.filename}` : '',
+            features: req.body.features ? JSON.parse(req.body.features) : [],
         };
 
-        const updatedProduct = await store.update(Product);
-        res.json(updatedProduct);
+        const updatedProduct = await store.update(product);
+        res.json({
+            message: 'Product updated successfully',
+            dataUpdate: updatedProduct,
+        });
     } catch (err) {
         res.status(400);
         res.json(err);
@@ -72,13 +85,15 @@ const update = async (req: Request, res: Response) => {
     }
 };
 
-// routes
+// routes  REST API
 const ProductsRoutes = (app: express.Application) => {
+    const UpLoad = multer({ dest: 'uploads/' });
+
     app.get('/products', index);
     app.get('/products/:id', show);
-    app.post('/products', verifyAuthToken, create);
+    app.post('/products', verifyAuthToken, UpLoad.single('image'), create);
     app.delete('/products/:id', deleteProduct);
-    app.put('/products', update);
+    app.put('/products/:id', UpLoad.single('image'), update);
 };
 
 export default ProductsRoutes;

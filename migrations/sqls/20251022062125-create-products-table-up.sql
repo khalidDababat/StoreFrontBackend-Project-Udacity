@@ -5,3 +5,4 @@
       description VARCHAR(255),
       category VARCHAR(100)
     );
+

@@ -57,6 +57,8 @@ name VARCHAR(100)
 price NUMERIC(10,2)
 description VARCHAR(255)
 category VARCHAR(100)
+image text
+features JSONB
 
 #### orders table
 

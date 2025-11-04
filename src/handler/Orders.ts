@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 
 import { Order, orderStore } from '../module/Orders.js';
-import { verifyAuthToken } from './verifyAuthToken .js';
+import { verifyAuthToken } from './verifyAuthToken.js';
 
 const store = new orderStore();
 
