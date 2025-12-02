@@ -1,9 +1,7 @@
 import React from 'react';
-//import './CreateProduct.scss';
-import Sidebar from '../Sidebar/Sidebar';
 import { useNavigate } from 'react-router';
+import { Container, Typography, Box } from '@mui/material';
 import ProductForm from '../ProductForm/ProductForm';
-import HeaderUser from '../Headers/HeaderUser';
 
 const CreateProduct = () => {
     const navigate = useNavigate();
@@ -35,17 +33,23 @@ const CreateProduct = () => {
     };
 
     return (
-        <div className="addProduct-container">
-            <Sidebar />
-            <div className="content">
-                <HeaderUser title="Add Product" />
+        <Container maxWidth="lg">
+            <Box sx={{ my: 4 }}>
+                <Typography
+                    variant="h4"
+                    component="h1"
+                    gutterBottom
+                    fontWeight="bold"
+                >
+                    Add New Product
+                </Typography>
                 <ProductForm
                     onSubmit={createNewProduct}
                     onCancel={() => navigate('/products')}
-                    submitLabel="Save"
+                    submitLabel="Create Product"
                 />
-            </div>
-        </div>
+            </Box>
+        </Container>
     );
 };
 

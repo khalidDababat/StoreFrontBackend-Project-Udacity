@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
-import imgLogon from '../../assets/images/imgLogin.jpg';
-import './LogInUser.scss';
-import user from '../../assets/person-circle.svg';
-import lock from '../../assets/unlock-fill.svg';
-import Logo from '../Logo/Logo';
-
 import { useNavigate } from 'react-router';
+import {
+    Box,
+    Button,
+    TextField,
+    Typography,
+    Paper,
+    Grid,
+    Alert,
+    InputAdornment,
+    Container,
+} from '@mui/material';
+import PersonIcon from '@mui/icons-material/Person';
+import LockIcon from '@mui/icons-material/Lock';
+import Logo from '../Logo/Logo';
+import imgLogon from '../../assets/images/imgLogin.jpg';
 
 const LogINSignUb = () => {
     const [firstName, setFirstName] = useState('');
@@ -51,58 +60,141 @@ const LogINSignUb = () => {
     };
 
     return (
-        <div className="content-page">
-            <div className="login-container">
-                <div className="login-image">
-                    <img src={imgLogon} alt="imgLogo" />
-                </div>
-                <div className="login-form">
-                    <div className="title">
-                        <Logo />
-                        <h1>Welcome back!</h1>
+        <Box
+            sx={{
+                minHeight: '100vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                bgcolor: 'background.default',
+                p: 2,
+            }}
+        >
+            <Paper
+                elevation={6}
+                sx={{
+                    maxWidth: 1000,
+                    width: '100%',
+                    borderRadius: 4,
+                    overflow: 'hidden',
+                    display: 'flex',
+                }}
+            >
+                <Grid container>
+                    <Grid
+                        size={{ xs: 12, md: 6 }}
+                        sx={{
+                            display: { xs: 'none', md: 'block' },
+                            backgroundImage: `url(${imgLogon})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                        }}
+                    />
+                    <Grid size={{ xs: 12, md: 6 }}>
+                        <Box
+                            sx={{
+                                p: { xs: 4, md: 8 },
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                height: '100%',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            <Box sx={{ mb: 4 }}>
+                                <Logo />
+                            </Box>
+                            <Typography
+                                component="h1"
+                                variant="h4"
+                                fontWeight="bold"
+                                gutterBottom
+                            >
+                                Welcome back!
+                            </Typography>
+                            <Typography
+                                variant="body1"
+                                color="text.secondary"
+                                sx={{ mb: 4 }}
+                            >
+                                Please enter your details to sign in.
+                            </Typography>
 
-                        <form action="" onSubmit={handelLogin}>
-                            <div>
-                                <img src={user} alt="" />
-                                <input
-                                    type="text"
-                                    id="username"
-                                    placeholder="Username"
-                                    name="username"
+                            <Box
+                                component="form"
+                                onSubmit={handelLogin}
+                                sx={{ width: '100%' }}
+                            >
+                                <TextField
+                                    margin="normal"
                                     required
+                                    fullWidth
+                                    id="username"
+                                    label="Username"
+                                    name="username"
+                                    autoComplete="username"
+                                    autoFocus
                                     value={firstName}
                                     onChange={(e) =>
                                         setFirstName(e.target.value)
                                     }
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <PersonIcon color="action" />
+                                            </InputAdornment>
+                                        ),
+                                    }}
                                 />
-                            </div>
-
-                            <br />
-                            <div>
-                                <img src={lock} alt="" />
-                                <input
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="Password"
                                     type="password"
                                     id="password"
-                                    placeholder="Password"
-                                    name="password"
-                                    required
+                                    autoComplete="current-password"
                                     value={password}
                                     onChange={(e) =>
                                         setPassword(e.target.value)
                                     }
+                                    InputProps={{
+                                        startAdornment: (
+                                            <InputAdornment position="start">
+                                                <LockIcon color="action" />
+                                            </InputAdornment>
+                                        ),
+                                    }}
                                 />
-                            </div>
 
-                            <br />
+                                {error && (
+                                    <Alert severity="error" sx={{ mt: 2 }}>
+                                        {error}
+                                    </Alert>
+                                )}
 
-                            <button type="submit">Log In</button>
-
-                            {error && <p style={{ color: 'red' }}>{error}</p>}
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    size="large"
+                                    sx={{
+                                        mt: 4,
+                                        mb: 2,
+                                        py: 1.5,
+                                        fontSize: '1.1rem',
+                                    }}
+                                >
+                                    Log In
+                                </Button>
+                            </Box>
+                        </Box>
+                    </Grid>
+                </Grid>
+            </Paper>
+        </Box>
     );
 };
+
 export default LogINSignUb;

@@ -1,12 +1,20 @@
 import React from 'react';
-import logo from '../../assets/images/Logo.jpg';
+import { Box } from '@mui/material';
+import logo from '../../assets/images/Logo.png';
 import './Logo.scss';
 
 const Logo = () => {
     return (
-        <div className="logo">
-            <img src={logo} alt="logo" />
-        </div>
+        <Box
+            sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                p: 1,
+            }}
+        >
+            <img className="logo" src={logo} alt="logo" />
+        </Box>
     );
 };
 export default Logo;

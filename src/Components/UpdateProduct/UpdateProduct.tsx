@@ -1,6 +1,13 @@
 import React from 'react';
-import './UpdateProduct.scss';
-import HeaderUser from '../Headers/HeaderUser';
+import {
+    Dialog,
+    DialogContent,
+    DialogTitle,
+    IconButton,
+    Typography,
+    Box,
+} from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import ProductForm from '../ProductForm/ProductForm';
 
 interface UpdateProductProps {
@@ -35,9 +42,30 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({
     };
 
     return (
-        <div className="UpdateProduct-container">
-            <div className="content">
-                <HeaderUser title="Update Product" />
+        <Dialog open={true} onClose={onClose} maxWidth="md" fullWidth>
+            <DialogTitle
+                sx={{
+                    m: 0,
+                    p: 2,
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                }}
+            >
+                <Typography variant="h6" component="div" fontWeight="bold">
+                    Update Product
+                </Typography>
+                <IconButton
+                    aria-label="close"
+                    onClick={onClose}
+                    sx={{
+                        color: (theme) => theme.palette.grey[500],
+                    }}
+                >
+                    <CloseIcon />
+                </IconButton>
+            </DialogTitle>
+            <DialogContent dividers>
                 <ProductForm
                     initialData={{
                         name: product.name,
@@ -53,10 +81,10 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({
                     }}
                     onSubmit={handelUpdate}
                     onCancel={onClose}
-                    submitLabel="Update"
+                    submitLabel="Update Product"
                 />
-            </div>
-        </div>
+            </DialogContent>
+        </Dialog>
     );
 };
 

@@ -1,51 +1,112 @@
 import React from 'react';
-import './Sidebar.scss';
+import { useLocation, Link as RouterLink } from 'react-router-dom';
+import {
+    Drawer,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    Box,
+    Button,
+    Divider,
+} from '@mui/material';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import Logo from '../Logo/Logo';
 
-import dashboardLogo from '../../assets/bar-chart-fill.svg';
-import productsLogo from '../../assets/basket2.svg';
-import ordersLogo from '../../assets/bookmark-fill.svg';
-import reportsLogo from '../../assets/bell-fill.svg';
-import manageLogo from '../../assets/person-add.svg';
-import { Link } from 'react-router-dom';
-
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+const drawerWidth = 240;
 
 const Sidebar = () => {
+    const location = useLocation();
+    //const navigate = useNavigate();
+
+    const menuItems = [
+        { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
+        { text: 'Products', icon: <ShoppingBasketIcon />, path: '/products' },
+        { text: 'Orders', icon: <BookmarkIcon />, path: '#' },
+        { text: 'Reports', icon: <NotificationsIcon />, path: '#' },
+        { text: 'Manage Staff', icon: <PersonAddIcon />, path: '#' },
+    ];
+
+    const handelLogout = () => {
+        localStorage.removeItem('token');
+        window.location.href = '/login';
+    };
     return (
-        <div className="sidebar">
-            <div className="logo">
+        <Drawer
+            variant="permanent"
+            sx={{
+                width: drawerWidth,
+                flexShrink: 0,
+                [`& .MuiDrawer-paper`]: {
+                    width: drawerWidth,
+                    boxSizing: 'border-box',
+                    borderRight: 'none',
+                    boxShadow: '2px 0 10px rgba(0,0,0,0.05)',
+                },
+            }}
+        >
+            <Box
+                sx={{
+                    p: 2,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: 64,
+                }}
+            >
                 <Logo />
-            </div>
-
-            <div className="container">
-                <div className="item" id="active">
-                    <img src={dashboardLogo} alt="Dashboard" />
-                    <Link to="/dashboard">Dashboard</Link>
-                </div>
-
-                <div className="item">
-                    <img src={productsLogo} alt="Products" />
-                    <Link to="/products">Products</Link>
-                </div>
-                <div className="item">
-                    <img src={ordersLogo} alt="Orders" />
-                    <a href="#">Orders</a>
-                </div>
-                <div className="item">
-                    <img src={reportsLogo} alt="reports" />
-                    <a href="#">Reports</a>
-                </div>
-                <div className="item">
-                    <img src={manageLogo} alt="manage" />
-                    <a href="#">Manage Staff</a>
-                </div>
-            </div>
-
-            <button>
-                Logout <ExitToAppIcon />
-            </button>
-        </div>
+            </Box>
+            <Divider sx={{ mb: 2 }} />
+            <List>
+                {menuItems.map((item) => (
+                    <ListItem key={item.text} disablePadding>
+                        <ListItemButton
+                            component={RouterLink}
+                            to={item.path}
+                            selected={location.pathname === item.path}
+                            sx={{
+                                borderRadius: '0 24px 24px 0',
+                                mr: 2,
+                                '&.Mui-selected': {
+                                    backgroundColor: 'primary.light',
+                                    color: 'primary.contrastText',
+                                    '&:hover': {
+                                        backgroundColor: 'primary.main',
+                                    },
+                                    '& .MuiListItemIcon-root': {
+                                        color: 'primary.contrastText',
+                                    },
+                                },
+                            }}
+                        >
+                            <ListItemIcon sx={{ color: 'text.secondary' }}>
+                                {item.icon}
+                            </ListItemIcon>
+                            <ListItemText primary={item.text} />
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
+            <Box sx={{ mt: 'auto', p: 2 }}>
+                <Button
+                    variant="outlined"
+                    color="error"
+                    fullWidth
+                    startIcon={<ExitToAppIcon />}
+                    onClick={handelLogout}
+                    sx={{ borderRadius: 2 }}
+                >
+                    Logout
+                </Button>
+            </Box>
+        </Drawer>
     );
 };
+
 export default Sidebar;

@@ -1,15 +1,36 @@
 import React from 'react';
-import './SearchInput.scss';
-import { FaSearch } from 'react-icons/fa';
+import { TextField, InputAdornment } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 const SearchInput = () => {
     return (
-        <div className="search">
-            <div>
-                <FaSearch />
-            </div>
-            <input type="text" placeholder="    Search Product" />
-        </div>
+        <TextField
+            placeholder="Search Product"
+            variant="outlined"
+            size="small"
+            sx={{
+                backgroundColor: 'background.paper',
+                borderRadius: 1,
+                '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                        borderColor: 'transparent',
+                    },
+                    '&:hover fieldset': {
+                        borderColor: 'primary.light',
+                    },
+                    '&.Mui-focused fieldset': {
+                        borderColor: 'primary.main',
+                    },
+                },
+            }}
+            InputProps={{
+                startAdornment: (
+                    <InputAdornment position="start">
+                        <SearchIcon color="action" />
+                    </InputAdornment>
+                ),
+            }}
+        />
     );
 };
 
