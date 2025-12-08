@@ -5,13 +5,15 @@ import Products from '../Components/Products/Products';
 import CreateProduct from '../Components/CreateProduct/CreateProduct';
 import Layout from '../Components/Layout/Layout';
 
+import MainLayout  from '../Components/Layout/MainLayout';
 import { authLoader } from './authLoader';
 
 export const router = createBrowserRouter([
     {
         path: '/',
-        loader: () => redirect('/login'),
+        loader: () => redirect('/MainLayout'),
     },
+    {path: '/MainLayout', element: <MainLayout />},
     { path: '/login', element: <LogINSignUb /> },
     {
         element: <Layout />,

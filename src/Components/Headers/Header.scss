@@ -1,0 +1,36 @@
+header {
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+
+    background-color: #000051;
+    height: 130px;
+    border-bottom-left-radius: 15px; 
+    border-bottom-right-radius: 15px;
+
+   
+       
+
+        .icon-cart,
+        .icon-login,
+        .menu-icon {
+            background-color: rgb(105, 107, 104);
+            padding: 10px;
+            font-size: 20px;
+            color: white; 
+            border-radius: 50px; 
+            margin-left: 5px;
+
+            &:hover {
+                background-color: #acaaaa;
+                cursor: pointer;
+            }
+        }
+    
+     .logo img{
+        height: 180px;
+        
+     }   
+}

@@ -13,14 +13,14 @@ const theme = createTheme({
             contrastText: '#ffffff',
         },
         secondary: {
-            main: '#FF6F00', // Amber/Orange for appetizing accents (call to actions)
+            main: '#FF6F00',
             light: '#FFA040',
             dark: '#C43E00',
             contrastText: '#000000',
         },
         background: {
-            default: '#F5F5F5', // Light Grey for content background
-            paper: '#FFFFFF', // White for cards and surfaces
+            default: '#F5F5F5', 
+            paper: '#FFFFFF', 
         },
         text: {
             primary: '#212121', // Dark Grey for primary text

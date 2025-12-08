@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
+
+import { useProducts } from '../../Hook/useProducts';
 import {
     Box,
     Grid,
@@ -21,6 +23,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SearchInput from '../SearchInput/SearchInput';
 import UpdateProduct from '../UpdateProduct/UpdateProduct';
 
+//import { useDispatch } from 'react-redux';
+//import { fetchProduct } from '../../Store/features/productsSlice';
+
 type Product = {
     id: string;
     name: string;
@@ -32,43 +37,13 @@ type Product = {
 };
 
 const Products = () => {
-    const [products, setProducts] = useState<Product[]>([]);
     const [selectProduct, setSelectedProduct] = useState<Product | null>(null);
     const [showModel, setShowModel] = useState<boolean>(false);
-    const [loading, setLoading] = useState<boolean>(true);
     const navigate = useNavigate();
 
-    const fetchProducts = async () => {
-        setLoading(true);
-        const token = localStorage.getItem('token');
-        try {
-            const response = await fetch(
-                `${process.env.REACT_APP_BACKEND_UR}/products`,
-                {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+    const { products, loading } = useProducts();
 
-            if (!response.ok) {
-                throw new Error('Failed to fetch products');
-            }
-            const productsData = await response.json();
-            setProducts(productsData);
-        } catch (err) {
-            console.log('Failed to fetch products', err);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        fetchProducts();
-    }, []);
-
+   
     const addProduct = () => {
         navigate('/createProduct');
     };
@@ -95,7 +70,7 @@ const Products = () => {
                 throw new Error('failed delete product');
             }
 
-            setProducts((item) => item.filter((product) => product.id !== id));
+           // products((item) => item.filter((product) => product.id !== id));
         } catch (err) {
             console.log(err);
         }
@@ -111,7 +86,7 @@ const Products = () => {
         setSelectedProduct(null);
     };
     const handleUpdateSuccess = () => {
-        fetchProducts();
+        //dispatch(fetchProduct());
         handelCloseModel();
     };
 
@@ -136,12 +111,12 @@ const Products = () => {
             </Stack>
 
             {loading ? (
-                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 25 }}>
                     <CircularProgress />
                 </Box>
             ) : products.length > 0 ? (
                 <Grid container spacing={3}>
-                    {products.map((item) => (
+                    {products.map((item: any) => (
                         <Grid
                             key={item.id}
                             size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
