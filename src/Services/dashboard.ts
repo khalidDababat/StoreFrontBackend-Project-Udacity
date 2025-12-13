@@ -3,7 +3,11 @@ import client from '../database';
 import { Product } from '../module/Products';
 
 export class DashboardQueries {
-    //   // get Products Data by Specific ID
+   
+    
+   
+
+    // get Products Data by Specific ID
     async getAllProductsById(id: number): Promise<Product | null> {
         try {
             if (!client) {

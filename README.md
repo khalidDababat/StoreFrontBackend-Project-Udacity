@@ -3,6 +3,11 @@
 This is the backend API for an online store built using Node.js, Express, TypeScript, and PostgreSQL.
 It provides endpoints for managing users, products, and orders.
 
+This database schema was designed for a scalable e-commerce system.
+It supports products with dynamic features, carts, orders, and payments.
+Notifications and advanced modules can be added based on client needs.
+
+
 ### Port number for db and server.
 
 - running server on http://localhost:4000
