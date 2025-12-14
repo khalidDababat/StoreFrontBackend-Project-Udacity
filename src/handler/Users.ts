@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 
 import { User, userStore } from '../module/Users.js';
+
 import jwt from 'jsonwebtoken';
 import { verifyAuthToken } from './verifyAuthToken.js';
 
@@ -15,8 +16,7 @@ const index = async (_req: Request, res: Response) => {
         const Users = await store.index();
         res.json(Users);
     } catch (err) {
-        res.status(400);
-        res.json(err);
+        res.status(400).json(err);
     }
 };
 
@@ -34,9 +34,11 @@ const show = async (_req: Request, res: Response) => {
 const create = async (req: Request, res: Response) => {
     try {
         const User: Omit<User, 'id'> = {
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            email: req.body.email,
             password: req.body.password,
+            phone: req.body.phone,
         };
 
         const newUser = await store.create(User);
@@ -56,18 +58,23 @@ const create = async (req: Request, res: Response) => {
 
 const authenticate = async (req: Request, res: Response) => {
     const user: User = {
-        firstname: req.body.firstname,
+        email: req.body.email,
         password: req.body.password,
     };
 
     try {
         const authenticatedUser = await store.authenticate(
-            user.firstname,
+            user.email!,
             user.password
         );
+
+        if (!authenticatedUser) {
+            res.status(401).json({ error: 'Invalid email or password' });
+            return;
+        }
         const tokenSecret = process.env['TOKEN_SECRET'];
         if (!tokenSecret) {
-            throw new Error('TOKEN_SECRET environment variable is not set');
+            throw new Error('TOKEN_SECRET not set');
         }
         const token = jwt.sign({ user: authenticatedUser }, tokenSecret, {
             expiresIn: '1h',
@@ -81,9 +88,9 @@ const authenticate = async (req: Request, res: Response) => {
 };
 
 const usersRoutes = (app: express.Application) => {
-    app.get('/users', index);
-    app.get('/users/:id', show);
-    app.post('/users', verifyAuthToken, create);
+    app.get('/users', verifyAuthToken, index);
+    app.get('/users/:id', verifyAuthToken, show);
+    app.post('/users', create);
     app.post('/users/authenticate', authenticate);
 };
 

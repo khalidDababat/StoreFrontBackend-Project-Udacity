@@ -1,4 +1,4 @@
 /* Replace with your SQL commands */
 
 
-DROP TABLE IF EXISTS users;
+drop table if exists users;

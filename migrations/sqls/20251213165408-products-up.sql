@@ -6,6 +6,7 @@ CREATE TABLE products (
     name VARCHAR(150) NOT NULL,
     price NUMERIC(10,2) NOT NULL,
     image VARCHAR(255),
+    description VARCHAR(500),
     stock INT DEFAULT 0,
     is_active BOOLEAN DEFAULT TRUE,
     category_id INT,

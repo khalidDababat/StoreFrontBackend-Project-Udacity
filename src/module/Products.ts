@@ -5,9 +5,10 @@ export type Product = {
     name: string;
     price: number;
     description?: string;
-    category: string;
+    category_id: number;
     image?: string;
-    features?: string[];
+    stock?: number;
+    is_active?: boolean;
 };
 
 export class productStore {
@@ -44,16 +45,21 @@ export class productStore {
             if (!client) throw new Error('Database client not initialized');
             //@'ts-expect-error
             const conn = await client.connect();
-            const sql =
-                'INSERT INTO products (name, price, description,category, image,features) VALUES($1, $2, $3,$4,$5,$6) RETURNING *';
+            const sql = `
+            INSERT INTO products 
+            (name, price,image, description, stock ,is_active ,category_id)
+            VALUES ($1, $2, $3, $4, $5, $6, $7)
+            RETURNING *
+        `;
 
             const res = await conn.query(sql, [
                 p.name,
                 p.price,
-                p.description,
-                p.category,
-                p.image,
-                p.features ? JSON.stringify(p.features) : null,
+                p.image ?? null,
+                p.description ?? null,
+                p.stock ?? 0,
+                p.is_active ?? true,
+                p.category_id,
             ]);
             const Product = res.rows[0];
             conn.release();
@@ -82,15 +88,27 @@ export class productStore {
             if (!client) throw new Error('Database client not initialized');
             //@'ts-expect-error
             const conn = await client.connect();
-            const sql =
-                'UPDATE products SET name=$1, price=$2, description=$3, category=$4,image=$5,features=$6  WHERE id=$7 RETURNING *';
+            const sql = `
+            UPDATE products
+            SET
+                name = $1,
+                price = $2,
+                description = $3,
+                category_id = $4,
+                image = $5,
+                stock = $6,
+                is_active = $7
+            WHERE id = $8
+            RETURNING *
+        `;
             const res = await conn.query(sql, [
                 p.name,
                 p.price,
                 p.description,
-                p.category,
-                p.image,
-                p.features ? JSON.stringify(p.features) : null,
+                p.category_id,
+                p.image ?? null,
+                p.stock ?? 0,
+                p.is_active ?? true,
                 p.id,
             ]);
             const Product = res.rows[0];

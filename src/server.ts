@@ -5,13 +5,14 @@ import cors from 'cors'; // Cross origin resource shearing to share backend to f
 import ProductsRoutes from './handler/Products.js';
 import usersRoutes from './handler/Users.js';
 import orderRoutes from './handler/Orders.js';
+import categoryRoutes from './handler/categories.js';
 
 //Application Object
 export const app = express();
 const port: string = '4000';
 
 // middleware
-app.use(cors());
+app.use(cors()); // shearing Between backend and frontend
 app.use(express.json());
 app.use(bodyParser.json());
 app.use('/uploads', express.static('uploads')); //Make the uploads folder publicly accessible
@@ -19,6 +20,7 @@ app.use('/uploads', express.static('uploads')); //Make the uploads folder public
 ProductsRoutes(app);
 usersRoutes(app);
 orderRoutes(app);
+categoryRoutes(app);
 
 app.get('/', (req: Request, res: Response) => {
     res.send('hello World');

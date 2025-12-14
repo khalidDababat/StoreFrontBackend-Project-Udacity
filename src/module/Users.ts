@@ -9,9 +9,12 @@ const pepper = process.env['BCRYPT_PASSWORD'];
 
 export type User = {
     id?: number;
-    firstname: string;
-    lastname?: string;
+    first_name?: string;
+    last_name?: string;
     password: string;
+    email: string;
+    phone?: string;
+    created_at?: Date;
 };
 
 export class userStore {
@@ -53,8 +56,9 @@ export class userStore {
             if (!client) throw new Error('Database client not initialized');
 
             const conn = await client.connect();
-            const sql =
-                'INSERT INTO users (firstname, lastname, password) VALUES($1, $2, $3) RETURNING *';
+            const sql = `
+            INSERT INTO users (first_name, last_name,email, password, phone) 
+            VALUES($1, $2, $3,$4,$5) RETURNING *`;
 
             const hash = bcrypt.hashSync(
                 u.password + pepper,
@@ -64,31 +68,34 @@ export class userStore {
             // console.log("hhhhhh " , hash);
 
             const result = await conn.query(sql, [
-                u.firstname,
-                u.lastname,
+                u.first_name,
+                u.last_name ?? '',
+                u.email,
                 hash,
+                u.phone,
             ]);
             const User = result.rows[0];
             conn.release();
             return User;
         } catch (err) {
             throw new Error(
-                `Could not create user ${u.firstname}. Error: ${err}`
+                `Could not create user ${u.first_name}. Error: ${err}`
             );
         }
     }
 
-    async authenticate(
-        firstname: string,
-        password: string
-    ): Promise<User | null> {
+    async authenticate(email: string, password: string): Promise<User | null> {
         try {
             // '@ts-expect-error'
             if (!client) throw new Error('Database client not initialized');
 
             const conn = await client.connect();
-            const sql = 'SELECT password FROM users WHERE firstName=($1)';
-            const result = await conn.query(sql, [firstname]);
+            const sql = `
+            SELECT id, first_name, last_name, email, password,phone
+            FROM users
+            WHERE email = $1
+            `;
+            const result = await conn.query(sql, [email]);
             if (result.rows.length) {
                 const user = result.rows[0];
 
@@ -100,9 +107,7 @@ export class userStore {
             }
             return null;
         } catch (err) {
-            throw new Error(
-                `Could not authenticate user ${firstname}. Error: ${err}`
-            );
+            throw new Error(`Could not authenticate user. Error: ${err}`);
         }
     }
 }

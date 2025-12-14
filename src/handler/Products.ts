@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import { Product, productStore } from '../module/Products.js';
+
 import { verifyAuthToken } from './verifyAuthToken.js';
 import multer from 'multer';
 
@@ -28,9 +29,10 @@ const create = async (req: Request, res: Response) => {
             name: req.body.name,
             price: req.body.price,
             description: req.body.description,
-            category: req.body.category,
+            category_id: req.body.category_id,
             image: req.file ? `/uploads/${req.file.filename}` : '',
-            features: req.body.features,
+            stock: req.body.stock,
+            is_active: req.body.is_active,
         };
 
         const newProduct = await store.create(Product);
@@ -68,9 +70,10 @@ const update = async (req: Request, res: Response) => {
             name: req.body.name,
             price: req.body.price,
             description: req.body.description,
-            category: req.body.category,
+            category_id: req.body.category,
             image: req.file ? `/uploads/${req.file.filename}` : '',
-            features: req.body.features ? JSON.parse(req.body.features) : [],
+            stock: req.body.stock,
+            is_active: req.body.is_active,
         };
 
         const updatedProduct = await store.update(product);
