@@ -6,6 +6,11 @@ import ProductsRoutes from './handler/Products.js';
 import usersRoutes from './handler/Users.js';
 import orderRoutes from './handler/Orders.js';
 import categoryRoutes from './handler/categories.js';
+import featureRoutes from './handler/features.js';
+import ProductFeatureRoutes from './handler/productFeatures.js';
+import productOrderRoutes from './handler/ProductOrder.js';
+
+import dashboardRoutes from './handler/dashboard.js';
 
 //Application Object
 export const app = express();
@@ -21,6 +26,10 @@ ProductsRoutes(app);
 usersRoutes(app);
 orderRoutes(app);
 categoryRoutes(app);
+featureRoutes(app);
+ProductFeatureRoutes(app);
+productOrderRoutes(app);
+dashboardRoutes(app);
 
 app.get('/', (req: Request, res: Response) => {
     res.send('hello World');

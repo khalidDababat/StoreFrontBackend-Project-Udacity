@@ -1,11 +1,29 @@
-// import {DashboardQueries} from '../Services/dashboard';
-// import express , { Request ,Response } from 'express';
+import { DashboardQueries } from './../Services/dashboard';
+import express, { Request, Response } from 'express';
 
-// const dashboard = new DashboardQueries();
+const dashboard = new DashboardQueries();
 
-// const getProductByID = (req: Request ,res:Response)=>{
+const getOrderDetails = async (req: Request, res: Response) => {
+    try {
+        const idOrder = Number(req.params['id'] ?? '');
+        const data = await dashboard.getOrderDetails(idOrder);
+        res.json(data);
+    } catch (error) {
+        res.status(404).json(error);
+    }
+};
 
-//     const id = parseInt(req.params['id'] ?? '');
-//     const data = dashboard.getAllProductsById(id);
+const getStats = async (req: Request, res: Response) => {
+    try {
+        const statesStoreProduct = await dashboard.getStats();
+        res.json(statesStoreProduct);
+    } catch (error) {
+        res.json(error);
+    }
+};
+const dashboardRoutes = (app: express.Application) => {
+    app.get('/dashboard/orders/:id', getOrderDetails);
+    app.get('/get-all-states', getStats);
+};
 
-// };
+export default dashboardRoutes;

@@ -1,4 +1,5 @@
 /* Replace with your SQL commands */
 
 
-DROP TABLE IF EXISTS cart CASCADE;
+ALTER TABLE cart
+DROP COLUMN user_id;

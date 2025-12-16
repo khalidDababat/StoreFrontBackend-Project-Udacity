@@ -118,4 +118,54 @@ export class productStore {
             throw new Error(`Could not update product ${p.id}. Error: ${err}`);
         }
     }
+
+    async updateStockProduct(
+        idProduct: number,
+        stock: number
+    ): Promise<Product> {
+        try {
+            if (!client) {
+                throw new Error('Database client not initialized');
+            }
+            //@'ts-expect-error
+            const conn = await client.connect();
+            const sql = `
+            UPDATE products
+            SET stock = $1
+            WHERE id = $2
+            RETURNING *; 
+             `;
+            const res = await conn.query(sql, [stock, idProduct]);
+            conn.release();
+            return res.rows[0];
+        } catch (error) {
+            throw new Error(
+                `Could not update Stock for id ${idProduct} Error ${error}`
+            );
+        }
+    }
+
+    // get All products Belong To Category Name Spastic
+    async getProductsByCategoryName(categoryname: string): Promise<Product[]> {
+        try {
+            if (!client) {
+                throw new Error('Database client not initialized');
+            }
+            //@'ts-expect-error
+            const conn = await client.connect();
+            const sql = `
+                 SELECT p.*
+                 FROM products p
+                 JOIN categories c ON c.id = p.category_id
+                 WHERE c.category = $1
+             `;
+            const res = await conn.query(sql, [categoryname]);
+            conn.release();
+            return res.rows[0];
+        } catch (error) {
+            throw new Error(
+                `could not find any Products for category Name ${categoryname} Error ${error}`
+            );
+        }
+    }
 }

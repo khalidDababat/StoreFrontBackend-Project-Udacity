@@ -52,8 +52,26 @@ const deleteProduct = async (req: Request, res: Response) => {
         const deletedProduct = await store.delete(id);
         res.json(deletedProduct);
     } catch (err) {
-        res.status(400);
-        res.json(err);
+        res.status(400).json(err);
+    }
+};
+
+const updateStockProduct = async (req: Request, res: Response) => {
+    try {
+        const idProduct = Number(req.params['id']);
+        const stock = Number(req.body.stock);
+
+        if (isNaN(stock) || stock < 0) {
+            res.status(400).json({ error: 'Invalid stock value' });
+        }
+
+        const productAfterUpdateStock = await store.updateStockProduct(
+            idProduct,
+            stock
+        );
+        res.json(productAfterUpdateStock);
+    } catch (error) {
+        res.json({ error: error });
     }
 };
 
@@ -88,6 +106,16 @@ const update = async (req: Request, res: Response) => {
     }
 };
 
+const getProductsByCategoryName = async (req: Request, res: Response) => {
+    try {
+        const categoryName = req.body.category;
+        const products = await store.getProductsByCategoryName(categoryName);
+        res.json(products);
+    } catch (error) {
+        res.json(error);
+    }
+};
+
 // routes  REST API
 const ProductsRoutes = (app: express.Application) => {
     const UpLoad = multer({ dest: 'uploads/' });
@@ -97,6 +125,9 @@ const ProductsRoutes = (app: express.Application) => {
     app.post('/products', verifyAuthToken, UpLoad.single('image'), create);
     app.delete('/products/:id', deleteProduct);
     app.put('/products/:id', UpLoad.single('image'), update);
+    app.put('/update-stock/:id', updateStockProduct);
+
+    app.get('/productsByCategoryName', getProductsByCategoryName);
 };
 
 export default ProductsRoutes;

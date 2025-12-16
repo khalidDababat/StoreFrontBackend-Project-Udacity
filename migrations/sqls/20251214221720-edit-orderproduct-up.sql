@@ -1,4 +1,4 @@
-
+/* Replace with your SQL commands */
 
 
 CREATE TABLE products_orders (
